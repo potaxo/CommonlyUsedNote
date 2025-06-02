@@ -26,3 +26,7 @@
 
 ## Delete all lines containing a specific word:
 - `:g/word/d` deletes all lines containing 'word'
+> **Explanation**:  
+> `:g` is a global command that applies to all lines in the file    
+> `/word/` is a pattern that matches lines containing 'word'    
+> `d` is the command to delete the matching lines   
