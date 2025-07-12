@@ -15,7 +15,7 @@
 | Activate env    | `conda activate myenv`              |
 | Deactivate      | `conda deactivate`                  |
 | **List envs**       | `conda env list`                    |
-| `List installed packages      | `conda list`       |
+| List installed packages      | `conda list`       |
 | Install package | `conda install numpy`               |
 | Remove env      | `conda remove -n myenv --all`       |
 | Export env      | `conda env export > env.yml`        |
