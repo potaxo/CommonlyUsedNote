@@ -4,8 +4,6 @@ You’re using Linux and ran a Jupyter Notebook process in the terminal. After p
 1. **Check if it’s really suspended**, and
 2. **Shut it down properly**.
 
-That’s a great question for a new Linux user — these are common shell management issues that build your confidence on Linux.
-
 ---
 
 ## 🚀 Why `Ctrl+Z` caused this?
@@ -83,23 +81,6 @@ or force kill with `kill -9 <pid>`.
 
 ---
 
-## ⚡ Forward-thinking tip
-
-Learning these basics of Linux process control (`jobs`, `fg`, `bg`, `kill`, `ps`) will be extremely helpful as you go deeper into software engineering, especially when managing servers or debugging long-running scripts.
-
-Also:
-
-* Consider running Jupyter with `nohup` or inside a `tmux` or `screen` session for longer work so it’s immune to terminal disconnections.
-* Example:
-
-  ```bash
-  nohup jupyter notebook &
-  ```
-
-  This keeps it running even if you close the terminal.
-
----
-
 ✅ **Summary command cheat sheet for you:**
 
 ```bash
@@ -109,7 +90,3 @@ kill %1               # kill job 1
 ps aux | grep jupyter # find running jupyter processes
 kill <pid>            # kill by PID
 ```
-
----
-
-If you’d like, I can also give you a **short interactive practice exercise** to build these Linux process skills. Want that? 🌱
