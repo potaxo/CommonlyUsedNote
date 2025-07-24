@@ -1,12 +1,8 @@
 # Basic
 
-### Copy a file to a new place
-Great question, potaxo! You're asking:
-**"How do I copy a file to another path in Linux?"**
-Let’s walk through it step by step.
 
 ---
-
+### Copy a file to a new place
 ### ✅ **Basic Syntax Using `cp` Command**
 
 To copy a file from one location to another, use the `cp` (copy) command:
@@ -72,21 +68,9 @@ This shows messages like:
 ```bash
 cp "my file.txt" "/home/potaxo/Backups/"
 ```
-
 ---
-
-### 🧠 Forward-thinking Tip:
-
-Start using `rsync` for more robust copying, especially when:
-
-* Copying large files or folders
-* Avoiding redundant copying
-* Preserving file permissions and timestamps
-
-Example:
-
-```bash
-rsync -avh file.txt ~/Desktop/
+### use grep to search
+```
+conda list | grep <package-name>
 ```
 
-Let me know if you'd like to learn how to copy entire directories too!
