@@ -39,3 +39,12 @@
   * **Processes** live independently in the kernel.
   * **Terminals** are just interfaces for humans to talk to those processes.
 * Much of Unix wizardry (nohup, tmux, daemons, SSH) is about **decoupling process lifetime from terminal lifetime**.
+
+
+### Job Control Commands
+If you want to background a running process, you can use `Ctrl+Z` to suspend it, then use the `bg` command to resume it in the background. To bring a background job back to the foreground, use the `fg` command.
+ 
+Or you can start a command directly in the background by appending `&` at the end of the command, like so:
+```bash
+your_command &
+```

@@ -73,4 +73,8 @@ cp "my file.txt" "/home/potaxo/Backups/"
 ```
 conda list | grep <package-name>
 ```
+### some useful command examples
 
+```
+pgrep sleep | xargs kill
+```

@@ -124,3 +124,81 @@ Zsh is powerful, but don’t overload it with plugins—it slows startup. Keep 3
 ---
 
 Do you want me to prepare a **minimal, optimized zsh plugin setup** file for you (`.zshrc`) so you can just drop it in?
+
+### Make vim as the default editor
+
+You’re asking two things:
+
+1. How to set **vim** as the default editor for your whole environment.
+2. Why **nano** shows up when you edit a Git commit, even though you want vim.
+
+---
+
+### 1. Set vim as the default editor system-wide
+
+There are a few layers of “who decides what editor to use.” You’ll want to cover them all:
+
+* **General environment**: set the `EDITOR` and `VISUAL` environment variables in your shell config (`~/.bashrc`, `~/.zshrc`, or `~/.profile`).
+
+  ```bash
+  export EDITOR=vim
+  export VISUAL=vim
+  ```
+
+  Reload with:
+
+  ```bash
+  source ~/.bashrc
+  ```
+
+* **System-wide (Debian/Ubuntu, including WSL)**:
+  Debian systems use the `alternatives` mechanism. Run:
+
+  ```bash
+  sudo update-alternatives --config editor
+  ```
+
+  Pick `vim.basic` (or whichever vim you like). This ensures all programs that respect the system editor use vim.
+
+---
+
+### 2. Why Git uses nano
+
+Git looks for an editor in this order:
+
+1. `git config core.editor`
+2. `$GIT_EDITOR` environment variable
+3. `$VISUAL` environment variable
+4. `$EDITOR` environment variable
+5. Falls back to system default (`/etc/alternatives/editor`, often nano on Ubuntu/WSL).
+
+That’s why you still get nano—it’s the fallback.
+
+To fix it just for Git:
+
+```bash
+git config --global core.editor "vim"
+```
+
+---
+
+### Summary
+
+* Set env vars in shell → `EDITOR` and `VISUAL`
+* Configure system editor → `update-alternatives`
+* Configure Git editor → `git config --global core.editor "vim"`
+
+That triple-shot guarantees you’ll never be surprised by nano again.
+
+---
+
+Forward-thinking tip: sometimes you’ll want a GUI editor for Git (like VS Code) but vim for everything else. In that case, you can set:
+
+```bash
+git config --global core.editor "code --wait"
+```
+
+so you get both worlds depending on context.
+
+Do you want me to show you how to test which editor Git is actually picking up right now?
+
