@@ -161,3 +161,100 @@ Think of `ssh-agent` as a **keychain manager**:
 ⚡ Forward-thinking tip: In WSL2, it’s often useful to set up your `~/.bashrc` or `~/.zshrc` so it auto-starts `ssh-agent` and adds your key when you open a shell. That way, you never forget to do it and your git workflow stays smooth.
 
 Do you want me to show you how to automate this so you don’t have to run those two commands manually every time?
+
+Good — so the parsing error is fixed, but now you say it’s **still stuck** when you run
+
+```
+ssh -T git@github.com
+```
+
+Let’s reason this out.
+
+When SSH hangs instead of giving an immediate success/error, it usually means:
+
+1. **Firewall/Network issue** — port 22 to GitHub is blocked. Some networks (corporate, school, certain ISPs) block SSH on port 22.
+
+   * GitHub provides an alternate port 443 endpoint for this:
+
+     ```bash
+     ssh -T -p 443 git@ssh.github.com
+     ```
+
+2. **SSH key not being used** — if your config isn’t pointing to the right key, SSH may keep trying with the wrong credentials before timing out.
+
+   * Your config shows:
+
+     ```ssh
+     Host github.com
+       HostName github.com
+       User potaxo
+       IdentityFile ~/.ssh/github_globle
+       AddKeysToAgent yes
+     ```
+
+     Two issues here:
+
+     * The `User` should be **git**, not your username. GitHub *only* accepts `git` as the SSH user.
+     * The filename `github_globle` looks suspicious — maybe you meant `github_global`? If the file doesn’t exist, SSH won’t find a key.
+
+   Corrected block should be:
+
+   ```ssh
+   Host github.com
+     HostName github.com
+     User git
+     IdentityFile ~/.ssh/github_global
+     AddKeysToAgent yes
+   ```
+
+3. **SSH agent not running / key not added** — Even if the key exists, you might need to add it:
+
+   ```bash
+   ssh-add ~/.ssh/github_global
+   ```
+
+---
+
+### Step-by-step to debug
+
+Run each in order:
+
+1. **Verbose test**
+
+   ```bash
+   ssh -vT git@github.com
+   ```
+
+   This prints what keys SSH is trying and where it gets stuck.
+
+2. **Check key existence**
+
+   ```bash
+   ls -l ~/.ssh/
+   ```
+
+   Confirm the actual filename (fix typo if needed).
+
+3. **Add key to agent**
+
+   ```bash
+   eval "$(ssh-agent -s)"
+   ssh-add ~/.ssh/github_global
+   ```
+
+4. **Retry with alternate port**
+
+   ```bash
+   ssh -T -p 443 git@ssh.github.com
+   ```
+
+---
+
+⚡ Forward-thinking tip: Always keep your SSH config “GitHub-clean”:
+
+* `User git`
+* Correct `IdentityFile` path
+* Use `ssh -vT` for debugging (verbosity is your microscope into SSH).
+
+Do you want me to walk you through interpreting the `ssh -vT` output so you can see *exactly* where it’s hanging?
+
