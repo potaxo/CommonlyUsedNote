@@ -1,4 +1,4 @@
-You’re asking: how to uninstall **fish** from Linux, install **zsh**, and then configure some useful plugins. Let’s walk through it step by step like a clean ritual of shell-switching.
+# install the component first and overwrite!!!
 
 ---
 
@@ -204,5 +204,6 @@ git config --global core.editor "code --wait"
 so you get both worlds depending on context.
 
 Do you want me to show you how to test which editor Git is actually picking up right now?
+
 
 
