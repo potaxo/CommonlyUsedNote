@@ -83,9 +83,6 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 
 # Syntax highlighting
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
-# fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ```
 
 Then edit your `.zshrc`:
@@ -204,6 +201,7 @@ git config --global core.editor "code --wait"
 so you get both worlds depending on context.
 
 Do you want me to show you how to test which editor Git is actually picking up right now?
+
 
 
 
